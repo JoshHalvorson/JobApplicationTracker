@@ -1,6 +1,6 @@
 # Job App Tracker
 
-## About
+### About
 
 App for tracking your applications and their status.
 
