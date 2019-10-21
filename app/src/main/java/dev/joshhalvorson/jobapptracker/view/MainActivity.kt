@@ -1,16 +1,15 @@
-package dev.joshhalvorson.jobapptracker
+package dev.joshhalvorson.jobapptracker.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import dev.joshhalvorson.jobapptracker.R
 import dev.joshhalvorson.jobapptracker.adapter.ApplicationsRecyclerviewAdapter
+import dev.joshhalvorson.jobapptracker.component
 import dev.joshhalvorson.jobapptracker.factory.MainActivityViewModelFactory
 import dev.joshhalvorson.jobapptracker.model.Application
-import dev.joshhalvorson.jobapptracker.network.ApplicationsApiInterface
 import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -41,5 +40,9 @@ class MainActivity : AppCompatActivity() {
             adapter.setData(apps)
         })
         viewModel.getApplications()
+
+        add_application_button.setOnClickListener {
+            AddApplicationDialogFragment().show(supportFragmentManager, "add_application")
+        }
     }
 }
