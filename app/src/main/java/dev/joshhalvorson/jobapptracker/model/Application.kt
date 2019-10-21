@@ -1,8 +1,8 @@
 package dev.joshhalvorson.jobapptracker.model
 
-class Application(
-    private val company: String,
-    private val dateApplied: String,
-    private val moveAlong: Boolean,
-    private val response: Boolean
+data class Application(
+    val company: String,
+    val dateApplied: String,
+    val moveAlong: Boolean,
+    val response: Boolean
 )
