@@ -4,6 +4,7 @@ import android.util.Log
 import dev.joshhalvorson.jobapptracker.model.Application
 import dev.joshhalvorson.jobapptracker.model.ApplicationsResponse
 import dev.joshhalvorson.jobapptracker.network.ApplicationsApiInterface
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +18,7 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
             }
 
             override fun onResponse(call: Call<ApplicationsResponse>, response: Response<ApplicationsResponse>) {
-                //Log.i("applicationsResponse", response.body().toString())
+                Log.i("applicationsResponse", response.body().toString())
                 response.body()?.let { applications ->
                     onSuccess.invoke(applications)
                 }
@@ -25,4 +26,19 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
         })
     }
 
+    override fun addApplication(
+        application: Application,
+        onSuccess: (ResponseBody) -> Unit,
+        onFailure: (t: Throwable) -> Unit
+    ) {
+        api.addApplication(application).enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                onFailure.invoke(t)
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.i("addApplicationsResponse", response.body().toString())
+            }
+        })
+    }
 }

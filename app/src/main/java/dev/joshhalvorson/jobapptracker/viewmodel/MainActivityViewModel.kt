@@ -10,7 +10,8 @@ import dev.joshhalvorson.jobapptracker.network.ApplicationsApiInterface
 import dev.joshhalvorson.jobapptracker.repository.ApplicationsRepositoryImpl
 import dev.joshhalvorson.jobapptracker.repository.ApplicationsRepository
 
-class MainActivityViewModel (private val applicationsRepository: ApplicationsRepository) : ViewModel() {
+class MainActivityViewModel(private val applicationsRepository: ApplicationsRepository) :
+    ViewModel() {
 
     private val _applications = MutableLiveData<ApplicationsResponse>()
 
@@ -20,7 +21,15 @@ class MainActivityViewModel (private val applicationsRepository: ApplicationsRep
     fun getApplications() {
         applicationsRepository.getApplications(
             { applications -> _applications.value = applications },
-            { t -> Log.e("MainActivity", "onFailure: " , t)}
+            { t -> Log.e("MainActivity", "onFailure: ", t) }
+        )
+    }
+
+    fun addApplication(application: Application) {
+        applicationsRepository.addApplication(
+            application,
+            { response -> Log.i("addApplication", response.toString()) },
+            { t -> Log.e("MainActivity", "onFailure: ", t) }
         )
     }
 
