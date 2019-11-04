@@ -8,6 +8,7 @@
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/application_list_item_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"

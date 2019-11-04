@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 
 import dev.joshhalvorson.jobapptracker.R
@@ -13,8 +12,18 @@ import dev.joshhalvorson.jobapptracker.model.Application
 import dev.joshhalvorson.jobapptracker.util.addRemoveErrorListener
 import kotlinx.android.synthetic.main.fragment_add_application_dialog.*
 
+private const val APPLICATION = "application"
+
 class AddApplicationDialogFragment : DialogFragment() {
     var onResult: ((application: Application) -> Unit)? = null
+    private var application: Application? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            application = it.getSerializable(APPLICATION) as Application
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_application_dialog, container, false)
@@ -23,6 +32,14 @@ class AddApplicationDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         company_name_edit_text.addRemoveErrorListener(company_name_input_layout)
         date_applied_edit_text.addRemoveErrorListener(date_applied_input_layout)
+
+        application?.let {
+            company_name_edit_text.setText(it.company)
+            company_name_input_layout.isEnabled = false
+            date_applied_edit_text.setText(it.dateApplied)
+            replied_check_box.isChecked = it.response
+            move_along_check_box.isChecked = it.moveAlong
+        }
 
         add_application_button.setOnClickListener {
             if (validateAddApplicationFormFields()) {
@@ -51,5 +68,15 @@ class AddApplicationDialogFragment : DialogFragment() {
             invalid = false
         }
         return invalid
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(application: Application) =
+            AddApplicationDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(APPLICATION, application)
+                }
+            }
     }
 }

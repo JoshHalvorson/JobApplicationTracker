@@ -25,14 +25,16 @@ class MainActivityViewModel(private val applicationsRepository: ApplicationsRepo
         )
     }
 
-    fun addApplication(company: String, application: Application) {
+    fun addApplication(company: String, application: Application, update: Boolean = false) {
         applicationsRepository.addApplication(
             company,
             application,
             { response -> Log.i("addApplication", response.toString()) },
-            { t -> Log.e("MainActivity", "onFailure: ", t) }
+            { t -> Log.e("addApplication", "onFailure: ", t) }
         )
-        getApplications()
+        if (!update) {
+            getApplications()
+        }
     }
 
 }

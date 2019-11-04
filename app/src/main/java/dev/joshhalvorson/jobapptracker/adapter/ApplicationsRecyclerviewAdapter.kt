@@ -8,7 +8,7 @@ import dev.joshhalvorson.jobapptracker.R
 import dev.joshhalvorson.jobapptracker.model.Application
 import kotlinx.android.synthetic.main.applications_list_item.view.*
 
-class ApplicationsRecyclerviewAdapter() : RecyclerView.Adapter<ApplicationsRecyclerviewAdapter.ViewHolder>() {
+class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<ApplicationsRecyclerviewAdapter.ViewHolder>() {
     private var data: ArrayList<Application> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -16,7 +16,7 @@ class ApplicationsRecyclerviewAdapter() : RecyclerView.Adapter<ApplicationsRecyc
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(data[position])
+        holder.bindItem(data[position], itemClickListener)
     }
 
     override fun getItemCount() = data.size
@@ -27,13 +27,20 @@ class ApplicationsRecyclerviewAdapter() : RecyclerView.Adapter<ApplicationsRecyc
         notifyDataSetChanged()
     }
 
+    fun updateEntry(oldApplication: Application, newApplication: Application) {
+        val index = data.indexOf(oldApplication)
+        data[index] = newApplication
+        notifyItemChanged(index)
+    }
+
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        private val parent = itemView.application_list_item_parent
         private val companyName = itemView.applications_list_item_company_name
         private val dateApplied = itemView.applications_list_item_date_applied
         private val reply = itemView.applications_list_item_reply
         private val movingForward = itemView.applications_list_item_moving_forward
 
-        fun bindItem(item: Application) {
+        fun bindItem(item: Application, clickListener: OnItemClickListener) {
             companyName.text = item.company
             dateApplied.text = "Date applied: ${item.dateApplied}"
 
@@ -48,7 +55,15 @@ class ApplicationsRecyclerviewAdapter() : RecyclerView.Adapter<ApplicationsRecyc
             } else {
                 movingForward.text = "Not moving forward"
             }
+
+            parent.setOnClickListener {
+                clickListener.onItemClicked(item)
+            }
         }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClicked(application: Application)
     }
 
 }

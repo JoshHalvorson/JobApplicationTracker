@@ -28,7 +28,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         component.inject(this)
 
-        adapter = ApplicationsRecyclerviewAdapter()
+        adapter = ApplicationsRecyclerviewAdapter(object: ApplicationsRecyclerviewAdapter.OnItemClickListener {
+            override fun onItemClicked(application: Application) {
+                Log.i("onItemClicked", application.company)
+                val dialog = AddApplicationDialogFragment.newInstance(application)
+                dialog.onResult = {
+                    Log.i("selectedRestaurant", it.moveAlong.toString())
+                    viewModel.addApplication(it.company, it, update = true)
+                    adapter.updateEntry(application, it)
+                }
+                dialog.show(supportFragmentManager, "dialog")
+            }
+        })
         applications_list.layoutManager = LinearLayoutManager(this)
         applications_list.adapter = adapter
 
