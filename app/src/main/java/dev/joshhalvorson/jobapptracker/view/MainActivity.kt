@@ -32,12 +32,13 @@ class MainActivity : AppCompatActivity() {
         applications_list.adapter = adapter
 
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
-        viewModel.applications.observe(this, Observer {
+        viewModel.applications.observe(this, Observer { response ->
             val apps = mutableListOf<Application>()
-            it.entries.forEach {
+            response.entries.forEach {
                 apps.add(it.value)
             }
-            adapter.setData(apps)
+            val sortedApps = apps.sortedWith(compareByDescending(Application::dateApplied))
+            adapter.setData(sortedApps)
         })
         viewModel.getApplications()
 
