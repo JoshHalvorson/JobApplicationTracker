@@ -25,8 +25,9 @@ class MainActivityViewModel(private val applicationsRepository: ApplicationsRepo
         )
     }
 
-    fun addApplication(application: Application) {
+    fun addApplication(company: String, application: Application) {
         applicationsRepository.addApplication(
+            company,
             application,
             { response -> Log.i("addApplication", response.toString()) },
             { t -> Log.e("MainActivity", "onFailure: ", t) }

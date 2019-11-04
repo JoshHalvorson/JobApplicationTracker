@@ -8,6 +8,6 @@ interface ApplicationsRepository  {
 
     fun getApplications(onSuccess: (ApplicationsResponse) -> Unit, onFailure: (t: Throwable) -> Unit)
 
-    fun addApplication(application: Application, onSuccess: (ResponseBody) -> Unit, onFailure: (t: Throwable) -> Unit)
+    fun addApplication(company: String, application: Application, onSuccess: (ResponseBody) -> Unit, onFailure: (t: Throwable) -> Unit)
 
 }

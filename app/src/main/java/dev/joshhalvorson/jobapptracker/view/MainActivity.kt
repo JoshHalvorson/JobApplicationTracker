@@ -2,6 +2,7 @@ package dev.joshhalvorson.jobapptracker.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         add_application_button.setOnClickListener {
             val dialog = AddApplicationDialogFragment()
             dialog.onResult = { application ->
-                viewModel.addApplication(application)
+                viewModel.addApplication(application.company, application)
             }
             dialog.show(supportFragmentManager, "add_application")
         }

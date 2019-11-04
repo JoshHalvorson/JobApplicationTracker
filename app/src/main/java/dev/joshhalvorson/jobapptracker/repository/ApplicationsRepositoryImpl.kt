@@ -27,11 +27,12 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
     }
 
     override fun addApplication(
+        company: String,
         application: Application,
         onSuccess: (ResponseBody) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
-        api.addApplication(application).enqueue(object: Callback<ResponseBody> {
+        api.addApplication(company, application).enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure.invoke(t)
             }
@@ -41,4 +42,5 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
             }
         })
     }
+
 }
