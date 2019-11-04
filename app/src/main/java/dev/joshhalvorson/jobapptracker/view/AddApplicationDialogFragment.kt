@@ -39,6 +39,7 @@ class AddApplicationDialogFragment : DialogFragment() {
             date_applied_edit_text.setText(it.dateApplied)
             replied_check_box.isChecked = it.response
             move_along_check_box.isChecked = it.moveAlong
+            add_application_button.text = "Update"
         }
 
         add_application_button.setOnClickListener {
