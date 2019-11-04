@@ -43,7 +43,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.getApplications()
 
         add_application_button.setOnClickListener {
-            AddApplicationDialogFragment().show(supportFragmentManager, "add_application")
+            val dialog = AddApplicationDialogFragment()
+            dialog.onResult = { application ->
+                viewModel.addApplication(application)
+            }
+            dialog.show(supportFragmentManager, "add_application")
         }
     }
 }
