@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Job App Tracker</string>
+    <string name="add_application_dialog_fragment_company_name_edit_text_hint">Company name</string>
+    <string name="add_application_dialog_fragment_date_applied_edit_text_hint">Date applied</string>
 </resources>
