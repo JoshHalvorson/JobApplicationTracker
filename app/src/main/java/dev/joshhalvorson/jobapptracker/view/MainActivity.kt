@@ -1,11 +1,9 @@
 package dev.joshhalvorson.jobapptracker.view
 
 import android.content.Context
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -33,6 +31,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var context: Context
 
+    private var applied = 0
+    private var replied = 0
+    private var movedAlong = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                                 viewHolder.adapterPosition
                             ).company
                         )
+                        countApplications(adapter.getApplications())
                     }
                     .setNegativeButton("Cancel") { dialog, which ->
                         adapter.notifyDataSetChanged()
@@ -72,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                     Log.i("selectedRestaurant", it.moveAlong.toString())
                     viewModel.addApplication(it.company, it, update = true)
                     adapter.updateEntry(application, it)
+                    countApplications(adapter.getApplications())
                 }
                 dialog.show(supportFragmentManager, "dialog")
             }
@@ -87,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 apps.add(it.value)
             }
             val sortedApps = apps.sortedWith(compareByDescending(Application::dateApplied))
+            countApplications(sortedApps)
             adapter.setData(sortedApps)
         })
         viewModel.getApplications()
@@ -98,5 +103,23 @@ class MainActivity : AppCompatActivity() {
             }
             dialog.show(supportFragmentManager, "add_application")
         }
+    }
+
+    private fun countApplications(applications: List<Application>) {
+        applied = 0
+        replied = 0
+        movedAlong = 0
+        applications.forEach {  application ->
+            applied += 1
+            if (application.response) {
+                replied += 1
+            }
+            if (application.moveAlong) {
+                movedAlong += 1
+            }
+        }
+        applied_text.text = "Applied: $applied"
+        replied_text.text = "Replied: $replied"
+        move_along_text.text = "Moved along: $movedAlong"
     }
 }

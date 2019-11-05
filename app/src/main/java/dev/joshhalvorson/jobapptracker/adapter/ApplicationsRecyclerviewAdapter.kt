@@ -39,6 +39,10 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
         return data[index]
     }
 
+    fun getApplications(): List<Application> {
+        return data
+    }
+
     fun setData(applications: List<Application>) {
         data.clear()
         data.addAll(applications)
