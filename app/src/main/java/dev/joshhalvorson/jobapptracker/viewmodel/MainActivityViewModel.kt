@@ -13,6 +13,8 @@ import dev.joshhalvorson.jobapptracker.repository.ApplicationsRepository
 class MainActivityViewModel(private val applicationsRepository: ApplicationsRepository) :
     ViewModel() {
 
+    //TODO("Cant re-add company with same details from one you've deleted in that session")
+
     private val _applications = MutableLiveData<ApplicationsResponse>()
 
     val applications: LiveData<ApplicationsResponse>
