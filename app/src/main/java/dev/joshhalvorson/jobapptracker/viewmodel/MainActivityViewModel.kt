@@ -37,4 +37,12 @@ class MainActivityViewModel(private val applicationsRepository: ApplicationsRepo
         }
     }
 
+    fun removeApplication(company: String) {
+        applicationsRepository.removeApplication(
+            company,
+            { response -> Log.i("removeApplication", response.toString()) },
+            { t -> Log.e("removeApplication", "onFailure: ", t) }
+        )
+    }
+
 }

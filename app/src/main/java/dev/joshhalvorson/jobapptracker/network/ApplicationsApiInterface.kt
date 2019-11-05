@@ -14,4 +14,7 @@ interface ApplicationsApiInterface {
     @PUT("{company}/.json")
     fun addApplication(@Path("company") company: String, @Body application: Application): Call<ResponseBody>
 
+    @DELETE("{company}/.json")
+    fun removeApplication(@Path("company") company: String): Call<Unit>
+
 }

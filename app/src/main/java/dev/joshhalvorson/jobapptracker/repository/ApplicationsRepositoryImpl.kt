@@ -43,4 +43,22 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
         })
     }
 
+    override fun removeApplication(
+        company: String,
+        onSuccess: (Unit) -> Unit,
+        onFailure: (t: Throwable) -> Unit
+    ) {
+        api.removeApplication(company).enqueue(object: Callback<Unit> {
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                onFailure.invoke(t)
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                Log.i("removeApplicationsResponse", response.body().toString())
+            }
+
+        })
+    }
+
+
 }

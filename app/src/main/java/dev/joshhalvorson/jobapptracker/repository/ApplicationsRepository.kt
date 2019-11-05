@@ -10,4 +10,5 @@ interface ApplicationsRepository  {
 
     fun addApplication(company: String, application: Application, onSuccess: (ResponseBody) -> Unit, onFailure: (t: Throwable) -> Unit)
 
+    fun removeApplication(company: String, onSuccess: (Unit) -> Unit, onFailure: (t: Throwable) -> Unit)
 }
