@@ -71,8 +71,8 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
                 reply.text = "Replied"
             } else {
                 reply.text = "Haven't replied"
-                movingForward.visibility = View.GONE
-                movingForwardImage.visibility = View.GONE
+                movingForward.visibility = View.INVISIBLE
+                movingForwardImage.visibility = View.INVISIBLE
             }
 
             if (item.moveAlong && movingForward.visibility == View.VISIBLE) {
