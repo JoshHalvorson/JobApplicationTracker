@@ -18,6 +18,7 @@ import dev.joshhalvorson.jobapptracker.factory.MainActivityViewModelFactory
 import dev.joshhalvorson.jobapptracker.model.Application
 import dev.joshhalvorson.jobapptracker.util.SwipeToDeleteCallback
 import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
