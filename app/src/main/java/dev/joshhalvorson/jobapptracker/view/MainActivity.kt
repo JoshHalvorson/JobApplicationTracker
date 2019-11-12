@@ -1,9 +1,9 @@
 package dev.joshhalvorson.jobapptracker.view
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,8 +18,8 @@ import dev.joshhalvorson.jobapptracker.factory.MainActivityViewModelFactory
 import dev.joshhalvorson.jobapptracker.model.Application
 import dev.joshhalvorson.jobapptracker.util.SwipeToDeleteCallback
 import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         applied = 0
         replied = 0
         movedAlong = 0
-        applications.forEach {  application ->
+        applications.forEach { application ->
             applied += 1
             if (application.response) {
                 replied += 1

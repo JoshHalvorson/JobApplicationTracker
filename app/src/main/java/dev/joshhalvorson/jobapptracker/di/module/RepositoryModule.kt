@@ -12,7 +12,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesApplicationsRepository(api: ApplicationsApiInterface) : ApplicationsRepository {
+    fun providesApplicationsRepository(api: ApplicationsApiInterface): ApplicationsRepository {
         return ApplicationsRepositoryImpl(api)
     }
 

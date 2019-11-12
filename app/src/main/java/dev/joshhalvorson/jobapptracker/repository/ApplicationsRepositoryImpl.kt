@@ -9,15 +9,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): ApplicationsRepository {
+class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface) :
+    ApplicationsRepository {
 
-    override fun getApplications(onSuccess: (ApplicationsResponse) -> Unit, onFailure: (t: Throwable) -> Unit) {
-        api.getApplications().enqueue(object: Callback<ApplicationsResponse> {
+    override fun getApplications(
+        onSuccess: (ApplicationsResponse) -> Unit,
+        onFailure: (t: Throwable) -> Unit
+    ) {
+        api.getApplications().enqueue(object : Callback<ApplicationsResponse> {
             override fun onFailure(call: Call<ApplicationsResponse>, t: Throwable) {
                 onFailure.invoke(t)
             }
 
-            override fun onResponse(call: Call<ApplicationsResponse>, response: Response<ApplicationsResponse>) {
+            override fun onResponse(
+                call: Call<ApplicationsResponse>,
+                response: Response<ApplicationsResponse>
+            ) {
                 Log.i("applicationsResponse", response.body().toString())
                 response.body()?.let { applications ->
                     onSuccess.invoke(applications)
@@ -32,7 +39,7 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
         onSuccess: (ResponseBody) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
-        api.addApplication(company, application).enqueue(object: Callback<ResponseBody> {
+        api.addApplication(company, application).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure.invoke(t)
             }
@@ -48,7 +55,7 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface): App
         onSuccess: (Unit) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
-        api.removeApplication(company).enqueue(object: Callback<Unit> {
+        api.removeApplication(company).enqueue(object : Callback<Unit> {
             override fun onFailure(call: Call<Unit>, t: Throwable) {
                 onFailure.invoke(t)
             }

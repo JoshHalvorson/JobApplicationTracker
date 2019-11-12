@@ -12,7 +12,8 @@ import dev.joshhalvorson.jobapptracker.R
 abstract class SwipeToDeleteCallback(context: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val deleteIcon = ContextCompat.getDrawable(context,
+    private val deleteIcon = ContextCompat.getDrawable(
+        context,
         R.drawable.ic_delete_white_24dp
     )
     private val intrinsicWidth = deleteIcon!!.intrinsicWidth
