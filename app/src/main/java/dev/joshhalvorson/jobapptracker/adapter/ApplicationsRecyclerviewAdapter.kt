@@ -61,6 +61,7 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
         private val dateApplied = itemView.applications_list_item_date_applied
         private val reply = itemView.applications_list_item_reply
         private val movingForward = itemView.applications_list_item_moving_forward
+        private val movingForwardImage = itemView.moving_forward_image
 
         fun bindItem(item: Application, clickListener: OnItemClickListener) {
             companyName.text = item.company
@@ -70,9 +71,11 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
                 reply.text = "Replied"
             } else {
                 reply.text = "Haven't replied"
+                movingForward.visibility = View.GONE
+                movingForwardImage.visibility = View.GONE
             }
 
-            if (item.moveAlong) {
+            if (item.moveAlong && movingForward.visibility == View.VISIBLE) {
                 movingForward.text = "Moving forward"
             } else {
                 movingForward.text = "Not moving forward"
