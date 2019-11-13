@@ -30,7 +30,10 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         // Do something with the date chosen by the user
-        Log.i("datePicker", "$month/$day/$year")
-        onResult?.invoke("$month/$day/$year")
+
+        // get the actual month number, not the indexed month number that returns
+        var actualMonth  = month + 1
+        Log.i("datePicker", "$actualMonth/$day/$year")
+        onResult?.invoke("$actualMonth/$day/$year")
     }
 }
