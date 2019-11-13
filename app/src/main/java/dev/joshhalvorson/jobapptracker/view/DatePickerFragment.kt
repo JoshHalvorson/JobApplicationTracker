@@ -32,7 +32,7 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         // Do something with the date chosen by the user
 
         // get the actual month number, not the indexed month number that returns
-        var actualMonth  = month + 1
+        val actualMonth  = month + 1
         Log.i("datePicker", "$actualMonth/$day/$year")
         onResult?.invoke("$actualMonth/$day/$year")
     }
