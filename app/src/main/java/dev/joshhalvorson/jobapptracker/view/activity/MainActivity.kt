@@ -1,4 +1,4 @@
-package dev.joshhalvorson.jobapptracker.view
+package dev.joshhalvorson.jobapptracker.view.activity
 
 import android.content.Context
 import android.os.Build
@@ -20,11 +20,11 @@ import dev.joshhalvorson.jobapptracker.component
 import dev.joshhalvorson.jobapptracker.factory.MainActivityViewModelFactory
 import dev.joshhalvorson.jobapptracker.model.Application
 import dev.joshhalvorson.jobapptracker.util.SwipeToDeleteCallback
+import dev.joshhalvorson.jobapptracker.view.fragment.AddApplicationDialogFragment
 import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -89,7 +89,10 @@ class MainActivity : AppCompatActivity() {
             ApplicationsRecyclerviewAdapter.OnItemClickListener {
             override fun onItemClicked(application: Application) {
                 Log.i("onItemClicked", application.company)
-                val dialog = AddApplicationDialogFragment.newInstance(application)
+                val dialog =
+                    AddApplicationDialogFragment.newInstance(
+                        application
+                    )
                 dialog.onResult = { app ->
                     Log.i("selectedRestaurant", app.moveAlong.toString())
                     viewModel.addApplication(uid, app.company, app, update = true)
@@ -116,7 +119,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.getApplications(uid)
 
         add_application_button.setOnClickListener {
-            val dialog = AddApplicationDialogFragment()
+            val dialog =
+                AddApplicationDialogFragment()
             dialog.onResult = { application ->
                 viewModel.addApplication(uid, application.company, application)
             }

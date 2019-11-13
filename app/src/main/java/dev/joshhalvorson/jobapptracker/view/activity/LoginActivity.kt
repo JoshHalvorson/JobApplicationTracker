@@ -1,4 +1,4 @@
-package dev.joshhalvorson.jobapptracker.view
+package dev.joshhalvorson.jobapptracker.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -52,7 +52,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent,
+            RC_SIGN_IN
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

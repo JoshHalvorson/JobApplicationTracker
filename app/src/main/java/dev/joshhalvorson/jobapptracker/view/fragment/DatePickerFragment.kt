@@ -1,4 +1,4 @@
-package dev.joshhalvorson.jobapptracker.view
+package dev.joshhalvorson.jobapptracker.view.fragment
 
 import android.app.DatePickerDialog
 import android.app.Dialog

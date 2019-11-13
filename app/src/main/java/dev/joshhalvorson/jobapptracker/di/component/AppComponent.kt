@@ -4,7 +4,7 @@ import dagger.Component
 import dev.joshhalvorson.jobapptracker.di.module.AppModule
 import dev.joshhalvorson.jobapptracker.di.module.RepositoryModule
 import dev.joshhalvorson.jobapptracker.di.module.ViewModelModule
-import dev.joshhalvorson.jobapptracker.view.MainActivity
+import dev.joshhalvorson.jobapptracker.view.activity.MainActivity
 import javax.inject.Singleton
 
 @Singleton
