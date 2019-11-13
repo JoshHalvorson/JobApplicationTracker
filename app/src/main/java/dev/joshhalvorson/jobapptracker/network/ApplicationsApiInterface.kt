@@ -8,13 +8,22 @@ import retrofit2.http.*
 
 interface ApplicationsApiInterface {
 
-    @GET("/.json")
-    fun getApplications(): Call<ApplicationsResponse>
+    @GET("{uid}/.json")
+    fun getApplications(
+        @Path("uid") uid: String
+    ): Call<ApplicationsResponse>
 
-    @PUT("{company}/.json")
-    fun addApplication(@Path("company") company: String, @Body application: Application): Call<ResponseBody>
+    @PUT("{uid}/{company}/.json")
+    fun addApplication(
+        @Path("uid") uid: String,
+        @Path("company") company: String,
+        @Body application: Application
+    ): Call<ResponseBody>
 
-    @DELETE("{company}/.json")
-    fun removeApplication(@Path("company") company: String): Call<Unit>
+    @DELETE("{uid}/{company}/.json")
+    fun removeApplication(
+        @Path("uid") uid: String,
+        @Path("company") company: String
+    ): Call<Unit>
 
 }

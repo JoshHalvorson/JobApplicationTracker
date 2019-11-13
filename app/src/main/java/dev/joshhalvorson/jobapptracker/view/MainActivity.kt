@@ -1,8 +1,10 @@
 package dev.joshhalvorson.jobapptracker.view
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 import dev.joshhalvorson.jobapptracker.R
 import dev.joshhalvorson.jobapptracker.adapter.ApplicationsRecyclerviewAdapter
 import dev.joshhalvorson.jobapptracker.component
@@ -20,6 +23,9 @@ import dev.joshhalvorson.jobapptracker.util.SwipeToDeleteCallback
 import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -36,11 +42,22 @@ class MainActivity : AppCompatActivity() {
     private var replied = 0
     private var movedAlong = 0
 
+    private lateinit var uid: String
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val dateTimeStrToLocalDateTime: (Application) -> LocalDate = {
+        LocalDate.parse(it.dateApplied, DateTimeFormatter.ofPattern("MM/dd/yyyy"))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         component.inject(this)
         context = this
+
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            uid = user.uid
+        }
 
         // Setting up adapter
         (applications_list.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -53,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                         "Delete"
                     ) { dialog, which ->
                         viewModel.removeApplication(
+                            uid,
                             adapter.deleteApplication(
                                 viewHolder.adapterPosition
                             ).company
@@ -72,10 +90,10 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClicked(application: Application) {
                 Log.i("onItemClicked", application.company)
                 val dialog = AddApplicationDialogFragment.newInstance(application)
-                dialog.onResult = {
-                    Log.i("selectedRestaurant", it.moveAlong.toString())
-                    viewModel.addApplication(it.company, it, update = true)
-                    adapter.updateEntry(application, it)
+                dialog.onResult = { app ->
+                    Log.i("selectedRestaurant", app.moveAlong.toString())
+                    viewModel.addApplication(uid, app.company, app, update = true)
+                    adapter.updateEntry(oldApplication = application, newApplication = app)
                     countApplications(adapter.getApplications())
                 }
                 dialog.show(supportFragmentManager, "dialog")
@@ -91,16 +109,16 @@ class MainActivity : AppCompatActivity() {
             response.entries.forEach {
                 apps.add(it.value)
             }
-            val sortedApps = apps.sortedWith(compareByDescending(Application::dateApplied))
+            val sortedApps = apps.sortedByDescending(dateTimeStrToLocalDateTime)
             countApplications(sortedApps)
             adapter.setData(sortedApps)
         })
-        viewModel.getApplications()
+        viewModel.getApplications(uid)
 
         add_application_button.setOnClickListener {
             val dialog = AddApplicationDialogFragment()
             dialog.onResult = { application ->
-                viewModel.addApplication(application.company, application)
+                viewModel.addApplication(uid, application.company, application)
             }
             dialog.show(supportFragmentManager, "add_application")
         }

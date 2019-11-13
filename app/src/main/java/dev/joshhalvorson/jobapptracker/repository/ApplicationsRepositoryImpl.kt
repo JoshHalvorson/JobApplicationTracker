@@ -13,10 +13,11 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface) :
     ApplicationsRepository {
 
     override fun getApplications(
+        uid: String,
         onSuccess: (ApplicationsResponse) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
-        api.getApplications().enqueue(object : Callback<ApplicationsResponse> {
+        api.getApplications(uid).enqueue(object : Callback<ApplicationsResponse> {
             override fun onFailure(call: Call<ApplicationsResponse>, t: Throwable) {
                 onFailure.invoke(t)
             }
@@ -34,12 +35,13 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface) :
     }
 
     override fun addApplication(
+        uid: String,
         company: String,
         application: Application,
         onSuccess: (ResponseBody) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
-        api.addApplication(company, application).enqueue(object : Callback<ResponseBody> {
+        api.addApplication(uid, company, application).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onFailure.invoke(t)
             }
@@ -51,17 +53,18 @@ class ApplicationsRepositoryImpl(private val api: ApplicationsApiInterface) :
     }
 
     override fun removeApplication(
+        uid: String,
         company: String,
         onSuccess: (Unit) -> Unit,
         onFailure: (t: Throwable) -> Unit
     ) {
-        api.removeApplication(company).enqueue(object : Callback<Unit> {
+        api.removeApplication(uid, company).enqueue(object : Callback<Unit> {
             override fun onFailure(call: Call<Unit>, t: Throwable) {
                 onFailure.invoke(t)
             }
 
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                Log.i("removeApplicationsResponse", response.body().toString())
+                Log.i("removeAppResponse", response.body().toString())
             }
 
         })

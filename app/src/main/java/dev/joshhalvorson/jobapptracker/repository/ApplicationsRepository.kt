@@ -7,11 +7,13 @@ import okhttp3.ResponseBody
 interface ApplicationsRepository {
 
     fun getApplications(
+        uid: String,
         onSuccess: (ApplicationsResponse) -> Unit,
         onFailure: (t: Throwable) -> Unit
     )
 
     fun addApplication(
+        uid: String,
         company: String,
         application: Application,
         onSuccess: (ResponseBody) -> Unit,
@@ -19,6 +21,7 @@ interface ApplicationsRepository {
     )
 
     fun removeApplication(
+        uid: String,
         company: String,
         onSuccess: (Unit) -> Unit,
         onFailure: (t: Throwable) -> Unit

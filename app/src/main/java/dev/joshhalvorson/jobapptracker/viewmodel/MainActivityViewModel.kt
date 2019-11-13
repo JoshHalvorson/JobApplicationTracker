@@ -18,27 +18,30 @@ class MainActivityViewModel(private val applicationsRepository: ApplicationsRepo
     val applications: LiveData<ApplicationsResponse>
         get() = _applications
 
-    fun getApplications() {
+    fun getApplications(uid: String) {
         applicationsRepository.getApplications(
+            uid,
             { applications -> _applications.value = applications },
             { t -> Log.e("MainActivity", "onFailure: ", t) }
         )
     }
 
-    fun addApplication(company: String, application: Application, update: Boolean = false) {
+    fun addApplication(uid: String, company: String, application: Application, update: Boolean = false) {
         applicationsRepository.addApplication(
+            uid,
             company,
             application,
             { response -> Log.i("addApplication", response.toString()) },
             { t -> Log.e("addApplication", "onFailure: ", t) }
         )
         if (!update) {
-            getApplications()
+            getApplications(uid)
         }
     }
 
-    fun removeApplication(company: String) {
+    fun removeApplication(uid: String, company: String) {
         applicationsRepository.removeApplication(
+            uid,
             company,
             { response -> Log.i("removeApplication", response.toString()) },
             { t -> Log.e("removeApplication", "onFailure: ", t) }
