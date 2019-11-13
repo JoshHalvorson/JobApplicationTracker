@@ -58,6 +58,10 @@ class AddApplicationDialogFragment : DialogFragment() {
                 dismiss()
             }
         }
+
+        date_applied_edit_text.setOnClickListener {
+            showDatePickerDialog()
+        }
     }
 
     private fun validateAddApplicationFormFields(): Boolean {
@@ -83,5 +87,17 @@ class AddApplicationDialogFragment : DialogFragment() {
                     putSerializable(APPLICATION, application)
                 }
             }
+    }
+
+    private fun showDatePickerDialog() {
+        val newFragment = DatePickerFragment()
+        newFragment.onResult = { date ->
+            updateDateEditText(date)
+        }
+        fragmentManager?.let { newFragment.show(it, "datePicker") }
+    }
+
+    private fun updateDateEditText(date: String) {
+        date_applied_edit_text.setText(date)
     }
 }

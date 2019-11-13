@@ -40,11 +40,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/add_application_dialog_fragment_date_applied_edit_text_hint"
+        android:clickable="true"
+        android:editable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/company_name_input_layout">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/date_applied_edit_text"
+            android:focusable="false"
+            android:clickable="false"
+            android:editable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
