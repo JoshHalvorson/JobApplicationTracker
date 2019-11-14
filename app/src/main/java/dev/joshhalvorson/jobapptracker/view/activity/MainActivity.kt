@@ -71,9 +71,7 @@ class MainActivity : AppCompatActivity() {
                     ) { dialog, which ->
                         viewModel.removeApplication(
                             uid,
-                            adapter.deleteApplication(
-                                viewHolder.adapterPosition
-                            ).company
+                            adapter.getApplication(viewHolder.adapterPosition)
                         )
                         countApplications(adapter.getApplications())
                     }
@@ -87,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(applications_list)
         adapter = ApplicationsRecyclerviewAdapter(object :
             ApplicationsRecyclerviewAdapter.OnItemClickListener {
-            override fun onItemClicked(application: Application) {
+            override fun onItemClicked(index: Int, application: Application) {
                 Log.i("onItemClicked", application.company)
                 val dialog =
                     AddApplicationDialogFragment.newInstance(
@@ -95,8 +93,7 @@ class MainActivity : AppCompatActivity() {
                     )
                 dialog.onResult = { app ->
                     Log.i("selectedRestaurant", app.moveAlong.toString())
-                    viewModel.addApplication(uid, app.company, app, update = true)
-                    adapter.updateEntry(oldApplication = application, newApplication = app)
+                    viewModel.updateApplication(uid, oldApplication = application, newApplication = app)
                     countApplications(adapter.getApplications())
                 }
                 dialog.show(supportFragmentManager, "dialog")
@@ -109,8 +106,8 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         viewModel.applications.observe(this, Observer { response ->
             val apps = mutableListOf<Application>()
-            response.entries.forEach {
-                apps.add(it.value)
+            response.forEach {
+                apps.add(it)
             }
             val sortedApps = apps.sortedByDescending(dateTimeStrToLocalDateTime)
             countApplications(sortedApps)

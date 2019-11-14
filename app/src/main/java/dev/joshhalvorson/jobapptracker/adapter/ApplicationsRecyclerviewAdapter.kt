@@ -28,13 +28,6 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
 
     override fun getItemCount() = data.size
 
-    fun deleteApplication(index: Int): Application {
-        val application = getApplication(index)
-        data.remove(application)
-        notifyDataSetChanged()
-        return application
-    }
-
     fun getApplication(index: Int): Application {
         return data[index]
     }
@@ -47,12 +40,6 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
         data.clear()
         data.addAll(applications)
         notifyDataSetChanged()
-    }
-
-    fun updateEntry(oldApplication: Application, newApplication: Application) {
-        val index = data.indexOf(oldApplication)
-        data[index] = newApplication
-        notifyItemChanged(index)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
