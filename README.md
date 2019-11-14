@@ -12,5 +12,3 @@ App for tracking your applications and their status.
 - Data Binding
 - Material Design
 - Robolectric
-
-This is a work in progress, there are some bugs on the UI that I am wokring on getting fixed.
