@@ -19,10 +19,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/company_name_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/LoginTextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/add_application_dialog_fragment_company_name_edit_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,22 +36,24 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/date_applied_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/LoginTextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/add_application_dialog_fragment_date_applied_edit_text_hint"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:editable="false"
+        android:hint="@string/add_application_dialog_fragment_date_applied_edit_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/company_name_input_layout">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/date_applied_edit_text"
-            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:clickable="false"
             android:editable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:focusable="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
@@ -71,12 +73,15 @@
         app:layout_constraintStart_toStartOf="@+id/replied_check_box"
         app:layout_constraintTop_toBottomOf="@+id/replied_check_box" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/add_application_button"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        app:backgroundTint="@color/colorAccent"
         android:text="Add"
         app:layout_constraintEnd_toEndOf="@+id/date_applied_input_layout"
         app:layout_constraintTop_toBottomOf="@+id/move_along_check_box" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
