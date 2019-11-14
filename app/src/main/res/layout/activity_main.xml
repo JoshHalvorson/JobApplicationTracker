@@ -24,11 +24,11 @@
                 app:layout_collapseMode="pin">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/user_name_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="Josh Halvorson"
+                    android:text="User Name"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textSize="24sp"
@@ -43,8 +43,8 @@
                     android:layout_marginTop="8dp"
                     android:text="Applied:"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintStart_toStartOf="@+id/user_name_text"
+                    app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
 
                 <TextView
                     android:id="@+id/move_along_text"

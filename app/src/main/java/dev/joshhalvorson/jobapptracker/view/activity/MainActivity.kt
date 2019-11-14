@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         FirebaseAuth.getInstance().currentUser?.let { user ->
             uid = user.uid
+            user_name_text.text = user.displayName
         }
 
         // Setting up adapter
