@@ -3,9 +3,11 @@ package dev.joshhalvorson.jobapptracker.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.joshhalvorson.jobapptracker.R
 import dev.joshhalvorson.jobapptracker.model.Application
+import dev.joshhalvorson.jobapptracker.util.ApplicationsDiffCallback
 import kotlinx.android.synthetic.main.applications_list_item.view.*
 
 class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener) :
@@ -37,9 +39,11 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
     }
 
     fun setData(applications: List<Application>) {
+        val diffCallback = ApplicationsDiffCallback(data, applications)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         data.clear()
         data.addAll(applications)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

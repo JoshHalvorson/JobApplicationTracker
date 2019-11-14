@@ -83,8 +83,9 @@ class MainActivityViewModel(private val applicationsRepository: ApplicationsRepo
     }
 
     private fun updateApplicationInData(oldApplication: Application, newApplication: Application) {
-        removeApplicationFromData(oldApplication)
-        addApplicationToData(newApplication)
+        val tempApplicationsList = _applications.value?.toMutableList()
+        tempApplicationsList?.set(tempApplicationsList.indexOf(oldApplication), newApplication)
+        _applications.value = tempApplicationsList
     }
 
 }
