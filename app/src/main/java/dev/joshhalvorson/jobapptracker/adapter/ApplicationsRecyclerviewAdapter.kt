@@ -23,7 +23,7 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(data[position], itemClickListener)
+        holder.bindItem(position, data[position], itemClickListener)
     }
 
     override fun getItemCount() = data.size
@@ -63,7 +63,7 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
         private val movingForward = itemView.applications_list_item_moving_forward
         private val movingForwardImage = itemView.moving_forward_image
 
-        fun bindItem(item: Application, clickListener: OnItemClickListener) {
+        fun bindItem(index: Int, item: Application, clickListener: OnItemClickListener) {
             companyName.text = item.company
             dateApplied.text = "Date applied: ${item.dateApplied}"
 
@@ -84,13 +84,13 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
             }
 
             parent.setOnClickListener {
-                clickListener.onItemClicked(item)
+                clickListener.onItemClicked(index, item)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(application: Application)
+        fun onItemClicked(index: Int, application: Application)
     }
 
 }
