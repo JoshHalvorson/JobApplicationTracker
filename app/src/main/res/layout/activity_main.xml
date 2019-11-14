@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Applied:"
+                    android:text="Applied: 0"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/user_name_text"
                     app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Moved along:"
+                    android:text="Moved along: 0"
                     android:textSize="18sp"
                     app:layout_constraintStart_toEndOf="@+id/replied_text"
                     app:layout_constraintTop_toTopOf="@+id/applied_text" />
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="Replied:"
+                    android:text="Replied: 0"
                     android:textSize="18sp"
                     app:layout_constraintStart_toEndOf="@+id/applied_text"
                     app:layout_constraintTop_toTopOf="@+id/applied_text" />
