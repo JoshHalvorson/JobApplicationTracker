@@ -44,11 +44,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var uid: String
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    val dateTimeStrToLocalDateTime: (Application) -> LocalDate = {
-        LocalDate.parse(it.dateApplied, DateTimeFormatter.ofPattern("MM/dd/yyyy"))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -113,9 +108,8 @@ class MainActivity : AppCompatActivity() {
             response.forEach {
                 apps.add(it)
             }
-            val sortedApps = apps.sortedByDescending(dateTimeStrToLocalDateTime)
-            countApplications(sortedApps)
-            adapter.setData(sortedApps)
+            countApplications(apps)
+            adapter.setData(apps)
         })
         viewModel.getApplications(uid)
 
