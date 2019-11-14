@@ -93,7 +93,11 @@ class MainActivity : AppCompatActivity() {
                     )
                 dialog.onResult = { app ->
                     Log.i("selectedRestaurant", app.moveAlong.toString())
-                    viewModel.updateApplication(uid, oldApplication = application, newApplication = app)
+                    viewModel.updateApplication(
+                        uid,
+                        oldApplication = application,
+                        newApplication = app
+                    )
                     countApplications(adapter.getApplications())
                 }
                 dialog.show(supportFragmentManager, "dialog")
