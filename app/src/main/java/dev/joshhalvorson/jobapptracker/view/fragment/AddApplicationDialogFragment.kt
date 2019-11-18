@@ -39,6 +39,7 @@ class AddApplicationDialogFragment : DialogFragment() {
 
         application?.let {
             company_name_edit_text.setText(it.company)
+            add_application_dialog_title.text = "Update an applicaton"
             company_name_input_layout.isEnabled = false
             date_applied_edit_text.setText(it.dateApplied)
             replied_check_box.isChecked = it.response
