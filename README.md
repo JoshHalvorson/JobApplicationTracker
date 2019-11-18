@@ -4,11 +4,7 @@
 
 App for tracking your applications and their status.
 
-### Libraries
+I really wanted to focus on clean app design and architecture, as well as using as many relevant techonolgies that I could use. 
+This app is designed with MVVM with dependecy injection, Retrofit for network calls, Material design library for layouts, firebase database for storing data off the device.
 
-- Dagger2
-- Retrofit
-- RxJava
-- Data Binding
-- Material Design
-- Robolectric
+This is still a work in progress so the technologies used will change in the future.
