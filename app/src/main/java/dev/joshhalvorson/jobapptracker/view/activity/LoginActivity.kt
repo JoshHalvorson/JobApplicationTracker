@@ -3,6 +3,7 @@ package dev.joshhalvorson.jobapptracker.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -66,6 +67,8 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
+                sign_in_card_view.visibility = View.GONE
+                sign_in_progress_bar.visibility = View.VISIBLE
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!)
             } catch (e: ApiException) {
@@ -87,6 +90,8 @@ class LoginActivity : AppCompatActivity() {
                     checkLogIn(user)
                 } else {
                     // If sign in fails, display a message to the user.
+                    sign_in_card_view.visibility = View.VISIBLE
+                    sign_in_progress_bar.visibility = View.GONE
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Snackbar.make(main_layout, "Authentication Failed.", Snackbar.LENGTH_SHORT)
                         .show()
@@ -100,6 +105,8 @@ class LoginActivity : AppCompatActivity() {
             Log.i(TAG, user.uid)
             startActivity(Intent(applicationContext, MainActivity::class.java))
         } else {
+            sign_in_card_view.visibility = View.VISIBLE
+            sign_in_progress_bar.visibility = View.GONE
             Log.i(TAG, "Signed out")
         }
     }
