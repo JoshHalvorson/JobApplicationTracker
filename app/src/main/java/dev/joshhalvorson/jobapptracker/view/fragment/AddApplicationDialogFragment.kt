@@ -36,6 +36,7 @@ class AddApplicationDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         company_name_edit_text.addRemoveErrorListener(company_name_input_layout)
         date_applied_edit_text.addRemoveErrorListener(date_applied_input_layout)
+        setCheckboxVisibilityListeners()
 
         application?.let {
             company_name_edit_text.setText(it.company)
@@ -44,6 +45,10 @@ class AddApplicationDialogFragment : DialogFragment() {
             date_applied_edit_text.setText(it.dateApplied)
             replied_check_box.isChecked = it.response
             move_along_check_box.isChecked = it.moveAlong
+            first_interview_checkbox.isChecked = it.firstInterview
+            second_interview_checkbox.isChecked = it.secondInterview
+            third_interview_checkbox.isChecked = it.thirdInterview
+            offer_checkbox.isChecked = it.offer
             add_application_button.text = "Update"
         }
 
@@ -53,7 +58,11 @@ class AddApplicationDialogFragment : DialogFragment() {
                     company = company_name_input_layout.editText?.text.toString(),
                     dateApplied = date_applied_input_layout.editText?.text.toString(),
                     response = replied_check_box.isChecked,
-                    moveAlong = move_along_check_box.isChecked
+                    moveAlong = move_along_check_box.isChecked,
+                    firstInterview = first_interview_checkbox.isChecked,
+                    secondInterview = second_interview_checkbox.isChecked,
+                    thirdInterview = third_interview_checkbox.isChecked,
+                    offer = offer_checkbox.isChecked
                 )
                 onResult?.invoke(application)
                 dismiss()
@@ -100,5 +109,43 @@ class AddApplicationDialogFragment : DialogFragment() {
 
     private fun updateDateEditText(date: String) {
         date_applied_edit_text.setText(date)
+    }
+
+    private fun setCheckboxVisibilityListeners() {
+        move_along_check_box.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                first_interview_checkbox.visibility = View.VISIBLE
+                offer_checkbox.visibility = View.VISIBLE
+            } else {
+                first_interview_checkbox.visibility = View.GONE
+                second_interview_checkbox.visibility = View.GONE
+                third_interview_checkbox.visibility = View.GONE
+                offer_checkbox.visibility = View.GONE
+                first_interview_checkbox.isChecked = false
+                second_interview_checkbox.isChecked = false
+                third_interview_checkbox.isChecked = false
+                offer_checkbox.isChecked = false
+            }
+        }
+
+        first_interview_checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                second_interview_checkbox.visibility = View.VISIBLE
+            } else {
+                second_interview_checkbox.visibility = View.GONE
+                third_interview_checkbox.visibility = View.GONE
+                second_interview_checkbox.isChecked = false
+                third_interview_checkbox.isChecked = false
+            }
+        }
+
+        second_interview_checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                third_interview_checkbox.visibility = View.VISIBLE
+            } else {
+                third_interview_checkbox.visibility = View.GONE
+                third_interview_checkbox.isChecked = false
+            }
+        }
     }
 }
