@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -42,29 +43,56 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Applied: 0"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/user_name_text"
                     app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
-
-                <TextView
-                    android:id="@+id/move_along_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Moved along: 0"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@+id/replied_text"
-                    app:layout_constraintTop_toTopOf="@+id/applied_text" />
 
                 <TextView
                     android:id="@+id/replied_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="Replied: 0"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@+id/applied_text"
-                    app:layout_constraintTop_toTopOf="@+id/applied_text" />
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/applied_text"
+                    app:layout_constraintTop_toBottomOf="@+id/applied_text" />
+
+                <TextView
+                    android:id="@+id/first_interviews_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="First interviews: 0"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/replied_text"
+                    app:layout_constraintTop_toBottomOf="@+id/replied_text" />
+
+                <TextView
+                    android:id="@+id/second_interviews_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Second interviews: 0"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/first_interviews_text"
+                    app:layout_constraintTop_toBottomOf="@+id/replied_text" />
+
+                <TextView
+                    android:id="@+id/third_interviews_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Third interviews: 0"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/second_interviews_text"
+                    app:layout_constraintTop_toTopOf="@+id/second_interviews_text" />
+
+                <TextView
+                    android:id="@+id/offers_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offers: 0"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/first_interviews_text"
+                    app:layout_constraintTop_toBottomOf="@+id/first_interviews_text" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -44,7 +44,6 @@ class AddApplicationDialogFragment : DialogFragment() {
             company_name_input_layout.isEnabled = false
             date_applied_edit_text.setText(it.dateApplied)
             replied_check_box.isChecked = it.response
-            move_along_check_box.isChecked = it.moveAlong
             first_interview_checkbox.isChecked = it.firstInterview
             second_interview_checkbox.isChecked = it.secondInterview
             third_interview_checkbox.isChecked = it.thirdInterview
@@ -58,7 +57,6 @@ class AddApplicationDialogFragment : DialogFragment() {
                     company = company_name_input_layout.editText?.text.toString(),
                     dateApplied = date_applied_input_layout.editText?.text.toString(),
                     response = replied_check_box.isChecked,
-                    moveAlong = move_along_check_box.isChecked,
                     firstInterview = first_interview_checkbox.isChecked,
                     secondInterview = second_interview_checkbox.isChecked,
                     thirdInterview = third_interview_checkbox.isChecked,
@@ -112,7 +110,7 @@ class AddApplicationDialogFragment : DialogFragment() {
     }
 
     private fun setCheckboxVisibilityListeners() {
-        move_along_check_box.setOnCheckedChangeListener { buttonView, isChecked ->
+        replied_check_box.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 first_interview_checkbox.visibility = View.VISIBLE
                 offer_checkbox.visibility = View.VISIBLE

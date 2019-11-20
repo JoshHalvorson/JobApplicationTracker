@@ -1,10 +1,8 @@
 package dev.joshhalvorson.jobapptracker.view.activity
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,8 +22,6 @@ import dev.joshhalvorson.jobapptracker.view.fragment.AddApplicationDialogFragmen
 import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +36,10 @@ class MainActivity : AppCompatActivity() {
 
     private var applied = 0
     private var replied = 0
-    private var movedAlong = 0
+    private var firstInterviews = 0
+    private var secondInterviews = 0
+    private var thirdInterviews = 0
+    private var offers = 0
 
     private lateinit var uid: String
 
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                         application
                     )
                 dialog.onResult = { app ->
-                    Log.i("selectedRestaurant", app.moveAlong.toString())
+                    Log.i("selectedRestaurant", app.toString())
                     viewModel.updateApplication(
                         uid,
                         oldApplication = application,
@@ -127,18 +126,33 @@ class MainActivity : AppCompatActivity() {
     private fun countApplications(applications: List<Application>) {
         applied = 0
         replied = 0
-        movedAlong = 0
+        firstInterviews = 0
+        secondInterviews = 0
+        thirdInterviews = 0
+        offers = 0
         applications.forEach { application ->
             applied += 1
             if (application.response) {
                 replied += 1
             }
-            if (application.moveAlong) {
-                movedAlong += 1
+            if (application.firstInterview) {
+                firstInterviews += 1
+            }
+            if (application.secondInterview) {
+                secondInterviews += 1
+            }
+            if (application.thirdInterview) {
+                thirdInterviews += 1
+            }
+            if (application.offer) {
+                offers += 1
             }
         }
         applied_text.text = "Applied: $applied"
         replied_text.text = "Replied: $replied"
-        move_along_text.text = "Moved along: $movedAlong"
+        first_interviews_text.text = "First interviews: $firstInterviews"
+        second_interviews_text.text = "Second interviews: $secondInterviews"
+        third_interviews_text.text = "Third interviews: $thirdInterviews"
+        offers_text.text = "Offers: $offers"
     }
 }

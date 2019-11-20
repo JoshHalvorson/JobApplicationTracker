@@ -51,7 +51,7 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
         private val companyName = itemView.applications_list_item_company_name
         private val dateApplied = itemView.applications_list_item_date_applied
         private val reply = itemView.applications_list_item_reply
-        private val movingForward = itemView.applications_list_item_moving_forward
+        private val statusText = itemView.applications_list_item_status_text
         private val movingForwardImage = itemView.moving_forward_image
 
         fun bindItem(index: Int, item: Application, clickListener: OnItemClickListener) {
@@ -60,18 +60,27 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
 
             if (item.response) {
                 reply.text = "Replied"
-                movingForward.visibility = View.VISIBLE
+                statusText.visibility = View.VISIBLE
                 movingForwardImage.visibility = View.VISIBLE
             } else {
                 reply.text = "Haven't replied"
-                movingForward.visibility = View.INVISIBLE
+                statusText.visibility = View.INVISIBLE
                 movingForwardImage.visibility = View.INVISIBLE
             }
 
-            if (item.moveAlong && movingForward.visibility == View.VISIBLE) {
-                movingForward.text = "Moving forward"
-            } else {
-                movingForward.text = "Not moving forward"
+            if (statusText.visibility == View.VISIBLE) {
+                if (item.firstInterview) {
+                    statusText.text = "Reached first interview"
+                }
+                if (item.secondInterview) {
+                    statusText.text = "Reached second interview"
+                }
+                if (item.thirdInterview) {
+                    statusText.text = "Reached third interview"
+                }
+                if (item.offer) {
+                    statusText.text = "Offered a job!"
+                }
             }
 
             parent.setOnClickListener {
