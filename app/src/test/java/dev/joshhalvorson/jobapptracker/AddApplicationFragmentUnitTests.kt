@@ -16,7 +16,7 @@ class AddApplicationFragmentUnitTests {
     }
 
     @Test
-    fun addApplicationFormValidator_IncorrectApplication_BothFieldsWrong_ReturnsCompanyNameWrong_And_DateAppliedWrong_ErrorMessages() {
+    fun addApplicationFormValidator_IncorrectApplication_BothFieldsMissing_ReturnsCompanyNameWrong_And_DateAppliedWrong_ErrorMessages() {
         assertThat(
             AddApplicationFormValidator.validateAddApplicationFormFields(
                 companyName = "",
@@ -26,7 +26,7 @@ class AddApplicationFragmentUnitTests {
     }
 
     @Test
-    fun addApplicationFormValidator_IncorrectApplication_WrongCompanyName_ReturnsCompanyNameWrong_ErrorMessage() {
+    fun addApplicationFormValidator_IncorrectApplication_NoCompanyName_ReturnsCompanyNameWrong_ErrorMessage() {
         assertThat(
             AddApplicationFormValidator.validateAddApplicationFormFields(
                 companyName = "",
@@ -36,7 +36,7 @@ class AddApplicationFragmentUnitTests {
     }
 
     @Test
-    fun addApplicationFormValidator_IncorrectApplication_WrongDateApplied_ReturnsDateWrong_ErrorMessage() {
+    fun addApplicationFormValidator_IncorrectApplication_NoDateApplied_ReturnsDateWrong_ErrorMessage() {
         assertThat(
             AddApplicationFormValidator.validateAddApplicationFormFields(
                 companyName = "Company Name",
