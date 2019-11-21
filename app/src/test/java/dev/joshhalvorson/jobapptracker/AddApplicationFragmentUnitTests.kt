@@ -44,4 +44,14 @@ class AddApplicationFragmentUnitTests {
             )
         ).containsExactly(AddApplicationFormValidator.DATE_WRONG_FLAG)
     }
+
+    @Test
+    fun addApplicationFormValidator_IncorrectApplication_WrongDateApplied_ReturnsDateWrong_ErrorMessage() {
+        assertThat(
+            AddApplicationFormValidator.validateAddApplicationFormFields(
+                companyName = "Company Name",
+                dateApplied = "25/12/2019"
+            )
+        ).containsExactly(AddApplicationFormValidator.DATE_WRONG_FLAG)
+    }
 }
