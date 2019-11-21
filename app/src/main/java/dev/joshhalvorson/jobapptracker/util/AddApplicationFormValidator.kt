@@ -1,7 +1,5 @@
 package dev.joshhalvorson.jobapptracker.util
 
-import android.text.TextUtils
-
 class AddApplicationFormValidator  {
     companion object {
         val BOTH_FIELDS_WRONG_FLAG = listOf("Enter a company name", "Enter date applied")
@@ -15,12 +13,12 @@ class AddApplicationFormValidator  {
             var companyNameWrong = false
             var dateAppliedWrong = false
 
-            if (TextUtils.isEmpty(companyName)) {
+            if (companyName == "") {
                 companyNameWrong = true
             }
 
             // TODO("Make sure date is in the right pattern")
-            if (TextUtils.isEmpty(dateApplied)) {
+            if (dateApplied == "") {
                 dateAppliedWrong = true
             }
 
