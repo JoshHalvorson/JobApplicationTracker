@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             adapter.setData(apps)
             if (apps.size > 0) {
                 applications_list_progress_circle.visibility = View.GONE
+                no_applications_text.visibility = View.GONE
             } else {
                 no_applications_text.visibility = View.VISIBLE
                 applications_list_progress_circle.visibility = View.GONE
