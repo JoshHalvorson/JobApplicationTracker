@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -16,11 +17,20 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import dev.joshhalvorson.jobapptracker.BuildConfig
 import dev.joshhalvorson.jobapptracker.R
+import dev.joshhalvorson.jobapptracker.component
+import dev.joshhalvorson.jobapptracker.factory.MainActivityViewModelFactory
+import dev.joshhalvorson.jobapptracker.model.Application
+import dev.joshhalvorson.jobapptracker.viewmodel.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: MainActivityViewModel
+
+    @Inject
+    lateinit var factory: MainActivityViewModelFactory
 
     companion object {
         const val TAG = "signInActivity"
@@ -30,6 +40,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        component.inject(this)
+        viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(BuildConfig.client_id)
@@ -87,6 +99,18 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+                    user?.uid?.let {
+                        viewModel.addApplication(
+                            it, "init", Application(
+                                "init", "init",
+                                response = false,
+                                firstInterview = false,
+                                secondInterview = false,
+                                thirdInterview = false,
+                                offer = false
+                            )
+                        )
+                    }
                     checkLogIn(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -103,7 +127,8 @@ class LoginActivity : AppCompatActivity() {
     private fun checkLogIn(user: FirebaseUser?) {
         if (user != null) {
             Log.i(TAG, user.uid)
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
         } else {
             sign_in_card_view.visibility = View.VISIBLE
             sign_in_progress_bar.visibility = View.GONE

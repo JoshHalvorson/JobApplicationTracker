@@ -30,7 +30,9 @@ class MainActivityViewModel(private val applicationsRepository: ApplicationsRepo
             { applications ->
                 applications.forEach {
                     Log.i("allApps", "Key: ${it.key}, Application: ${it.value}")
-                    tempApplicationsList.add(it.value)
+                    if (it.key != "init") {
+                        tempApplicationsList.add(it.value)
+                    }
                 }
                 val sortedApps = tempApplicationsList.sortedByDescending(dateTimeStrToLocalDateTime)
                 _applications.value = sortedApps

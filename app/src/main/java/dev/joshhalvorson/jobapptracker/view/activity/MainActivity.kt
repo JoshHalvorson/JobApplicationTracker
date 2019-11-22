@@ -3,6 +3,7 @@ package dev.joshhalvorson.jobapptracker.view.activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -110,6 +111,12 @@ class MainActivity : AppCompatActivity() {
             }
             countApplications(apps)
             adapter.setData(apps)
+            if (apps.size > 0) {
+                applications_list_progress_circle.visibility = View.GONE
+            } else {
+                no_applications_text.visibility = View.VISIBLE
+                applications_list_progress_circle.visibility = View.GONE
+            }
         })
         viewModel.getApplications(uid)
 
