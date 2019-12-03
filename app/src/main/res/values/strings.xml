@@ -2,4 +2,10 @@
     <string name="app_name">Job App Tracker</string>
     <string name="add_application_dialog_fragment_company_name_edit_text_hint">Company name</string>
     <string name="add_application_dialog_fragment_date_applied_edit_text_hint">Date applied</string>
+    <string name="application_recyclerview_list_item_status_text_first_interview">Reached first interview</string>
+    <string name="application_recyclerview_list_item_status_text_second_interview">Reached second interview</string>
+    <string name="application_recyclerview_list_item_status_text_third_interview">Reached third interview</string>
+    <string name="application_recyclerview_list_item_status_text_job_offered">Offered a job!</string>
+    <string name="application_recyclerview_list_item_status_text_havent_replied">Haven\'t replied</string>
+    <string name="application_recyclerview_list_item_status_text_replied">Replied</string>
 </resources>

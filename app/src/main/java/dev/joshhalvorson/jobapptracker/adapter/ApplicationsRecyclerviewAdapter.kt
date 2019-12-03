@@ -59,27 +59,33 @@ class ApplicationsRecyclerviewAdapter(val itemClickListener: OnItemClickListener
             dateApplied.text = "Date applied: ${item.dateApplied}"
 
             if (item.response) {
-                reply.text = "Replied"
+                reply.text =
+                    itemView.context.getString(R.string.application_recyclerview_list_item_status_text_replied)
                 statusText.visibility = View.VISIBLE
                 movingForwardImage.visibility = View.VISIBLE
             } else {
-                reply.text = "Haven't replied"
+                reply.text =
+                    itemView.context.getString(R.string.application_recyclerview_list_item_status_text_havent_replied)
                 statusText.visibility = View.INVISIBLE
                 movingForwardImage.visibility = View.INVISIBLE
             }
 
             if (statusText.visibility == View.VISIBLE) {
                 if (item.firstInterview) {
-                    statusText.text = "Reached first interview"
+                    statusText.text =
+                        itemView.context.getString(R.string.application_recyclerview_list_item_status_text_first_interview)
                 }
                 if (item.secondInterview) {
-                    statusText.text = "Reached second interview"
+                    statusText.text =
+                        itemView.context.getString(R.string.application_recyclerview_list_item_status_text_second_interview)
                 }
                 if (item.thirdInterview) {
-                    statusText.text = "Reached third interview"
+                    statusText.text =
+                        itemView.context.getString(R.string.application_recyclerview_list_item_status_text_third_interview)
                 }
                 if (item.offer) {
-                    statusText.text = "Offered a job!"
+                    statusText.text =
+                        itemView.context.getString(R.string.application_recyclerview_list_item_status_text_job_offered)
                 }
             }
 
