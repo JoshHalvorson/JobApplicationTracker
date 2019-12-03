@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 sign_in_card_view.visibility = View.GONE
                 sign_in_progress_bar.visibility = View.VISIBLE
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account!!)
+                account?.let { firebaseAuthWithGoogle(it) }
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
