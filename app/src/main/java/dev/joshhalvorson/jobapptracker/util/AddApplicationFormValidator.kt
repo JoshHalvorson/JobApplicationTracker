@@ -2,7 +2,7 @@ package dev.joshhalvorson.jobapptracker.util
 
 import java.util.regex.Pattern
 
-class AddApplicationFormValidator  {
+class AddApplicationFormValidator {
     companion object {
         val BOTH_FIELDS_WRONG_FLAG = listOf("Enter a company name", "Enter date applied")
         const val COMPANY_NAME_WRONG_FLAG = "Enter a company name"
@@ -18,7 +18,7 @@ class AddApplicationFormValidator  {
             if (companyName == "") {
                 companyNameWrong = true
             }
-            
+
             val pattern = Pattern.compile("^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$")
             if (dateApplied == "" || !pattern.matcher(dateApplied as CharSequence).matches()) {
                 dateAppliedWrong = true

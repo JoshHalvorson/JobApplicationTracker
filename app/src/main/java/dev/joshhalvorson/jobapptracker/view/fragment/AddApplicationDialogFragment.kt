@@ -1,12 +1,10 @@
 package dev.joshhalvorson.jobapptracker.view.fragment
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-
 import dev.joshhalvorson.jobapptracker.R
 import dev.joshhalvorson.jobapptracker.model.Application
 import dev.joshhalvorson.jobapptracker.util.AddApplicationFormValidator
@@ -77,34 +75,38 @@ class AddApplicationDialogFragment : DialogFragment() {
         }
     }
 
-     private fun validateAddApplicationFormFields(companyName: String, dateApplied: String): Boolean {
-         val validatorReturn = AddApplicationFormValidator.validateAddApplicationFormFields(companyName, dateApplied)
-         when {
-             validatorReturn == null -> {
-                 // both correct
-                 return true
-             }
-             validatorReturn.size > 1 -> {
-                 // both wrong
-                 company_name_input_layout.isErrorEnabled = true
-                 date_applied_input_layout.isErrorEnabled = true
-                 company_name_input_layout.error = validatorReturn[0]
-                 date_applied_input_layout.error = validatorReturn[1]
-                 return false
-             }
-             validatorReturn[0] == AddApplicationFormValidator.COMPANY_NAME_WRONG_FLAG -> {
-                 // company name wrong
-                 company_name_input_layout.isErrorEnabled = true
-                 company_name_input_layout.error = validatorReturn[0]
-                 return false
-             }
-             else -> {
-                 // date applied wrong
-                 date_applied_input_layout.isErrorEnabled = true
-                 date_applied_input_layout.error = validatorReturn[0]
-                 return false
-             }
-         }
+    private fun validateAddApplicationFormFields(
+        companyName: String,
+        dateApplied: String
+    ): Boolean {
+        val validatorReturn =
+            AddApplicationFormValidator.validateAddApplicationFormFields(companyName, dateApplied)
+        when {
+            validatorReturn == null -> {
+                // both correct
+                return true
+            }
+            validatorReturn.size > 1 -> {
+                // both wrong
+                company_name_input_layout.isErrorEnabled = true
+                date_applied_input_layout.isErrorEnabled = true
+                company_name_input_layout.error = validatorReturn[0]
+                date_applied_input_layout.error = validatorReturn[1]
+                return false
+            }
+            validatorReturn[0] == AddApplicationFormValidator.COMPANY_NAME_WRONG_FLAG -> {
+                // company name wrong
+                company_name_input_layout.isErrorEnabled = true
+                company_name_input_layout.error = validatorReturn[0]
+                return false
+            }
+            else -> {
+                // date applied wrong
+                date_applied_input_layout.isErrorEnabled = true
+                date_applied_input_layout.error = validatorReturn[0]
+                return false
+            }
+        }
     }
 
     companion object {
